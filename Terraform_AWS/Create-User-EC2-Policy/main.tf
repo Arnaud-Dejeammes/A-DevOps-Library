@@ -1,5 +1,3 @@
-# WORK IN PROGRESS - DO NOT USE IF YOU ARE READING THIS MESSAGE
-
 # Security best practices reminder:
 # Do not hard-code credentials (AWS access key and secret key) in any Terraform configuration
 # (Risks of secret leakage if the file is commited to a public version control system)
