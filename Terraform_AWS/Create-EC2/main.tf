@@ -55,6 +55,13 @@ resource "aws_instance" "instance_purpose" {
   ami           = "ami-065681da47fb4e433"
   instance_type = "t3.micro"
 
+  # Tenancy of an EC2 lauched within a VPC
+    # `dedicated`: the instance runs on dedicated hardware from a single AWS account
+    # (higher control, performance and security)
+    # `default`: the instance shares the hardware with instances from other AWS account
+    # (lower costs)
+    instance_tenancy = "default"
+
   # key_name      = aws_key_pair.ec2_key_pair.key_name
 
   # Name in AWS
