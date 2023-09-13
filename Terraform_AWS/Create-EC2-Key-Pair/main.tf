@@ -88,8 +88,8 @@ output "key_pair_path" {
 
 # aws ec2 describe-key-pairs --key-names KEY_PAIR_NAME
 
-# `instance_purpose`: choose an appropriate descriptive name for the instance;
-# (web_server, database_server...)
+# `instance_purpose`: choose an appropriate descriptive name for the instance
+# (web_server, database_server... Name in Terraform)
 resource "aws_instance" "instance_purpose" {
   # Amazon Linux 2023 AMI (Free tier)
   ami           = "ami-065681da47fb4e433"
@@ -97,6 +97,7 @@ resource "aws_instance" "instance_purpose" {
 
   key_name      = aws_key_pair.ec2_key_pair.key_name
 
+  # Name in AWS
   tags = {
     Name = "ec2-${random_pet.pet_name.id}"
     # Add up up to 49 more tags
