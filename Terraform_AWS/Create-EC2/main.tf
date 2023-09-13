@@ -42,10 +42,10 @@ resource "random_pet" "pet_name" {
   separator = "-"
 }
 
-resource "aws_key_pair" "ec2_key_pair" {
-  key_name   = "key-pair-${random_pet.pet_name.id}"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
+# resource "aws_key_pair" "ec2_key_pair" {
+#   key_name   = "key-pair-${random_pet.pet_name.id}"
+#   public_key = file("~/.ssh/id_rsa.pub")
+# }
 
 
 # `instance_purpose`: choose an appropriate descriptive name for the instance
@@ -55,7 +55,7 @@ resource "aws_instance" "instance_purpose" {
   ami           = "ami-065681da47fb4e433"
   instance_type = "t3.micro"
 
-  key_name      = aws_key_pair.ec2_key_pair.key_name
+  # key_name      = aws_key_pair.ec2_key_pair.key_name
 
   tags = {
     Name = "ec2-${random_pet.pet_name.id}"
@@ -75,7 +75,7 @@ resource "aws_instance" "instance_purpose" {
     # Cold HDD: sc1
     # Throughtput Optimized HDD: st1
     # Magnetic: standatd
-    volume_type = standard
+    volume_type = "standard"
   }
   
   # EBS
@@ -96,9 +96,16 @@ resource "aws_instance" "instance_purpose" {
   # Save the RAM instance state (saved in EBS volume)
   # Put the instance in hibernation mode:
   # $ aws ec2 hibernate-instances --instance-ids INSTANCE_ID
-  hibernation_options {
-    configured = true
-  }
+
+  # !!!ISSUE TO FIX!!!
+  # Error: Unsupported block type
+  # on main.tf line 108, in resource "aws_instance" "instance_purpose":
+  # 108:   hibernation_options {
+  # Blocks of type "hibernation_options" are not expected here.
+
+  # hibernation_options {
+  #   configured = true
+  # }
 }
 
 # Stop the instance:

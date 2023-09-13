@@ -8,3 +8,5 @@ variable "user" {
   type    = string
   default = "random_pet.pet_name.id"
 }
+
+# sensitive = true
